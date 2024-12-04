@@ -1,0 +1,46 @@
+.investmentsLayout {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+
+	gap: 20px;
+
+	width: 100%;
+}
+
+.investments {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+
+	gap: 20px;
+
+	width: 720px;
+
+	padding: 16px 24px;
+	background: var(--color-bg);
+	border-radius: 16px;
+}
+
+.dashboardLink {
+	display: flex;
+	align-items: center;
+
+	width: 240px;
+	font-size: 14px;
+
+	cursor: pointer;
+	color: rgb(124, 124, 124);
+}
+
+.dashboardLink:hover {
+	color: rgb(0, 0, 0);
+}
+
+.dashboardLink::before {
+	content: '📊';
+	margin-right: 8px;
+	font-size: 20px;
+}

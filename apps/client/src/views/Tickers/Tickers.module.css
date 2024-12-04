@@ -1,56 +1,55 @@
 .tickers {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
 
 .ticker {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
 
-    padding: 12px;
-    background: var(--color-bg);
-    border-radius: 16px;
+	padding: 12px;
+	background: var(--color-bg);
+	border-radius: 16px;
 
-    cursor: default
+	cursor: default;
 }
 
 .tickerTitle {
-    font-weight: 600;
+	font-weight: 600;
 }
 
 .tickerDescription {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-end;
 
-    width: 100px;
+	width: 100px;
 }
 
 .tickerLogo {
-    border-radius: 32px;
+	border-radius: 32px;
 }
 
 .ivestmentsManagementLink {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 
-    width: 32px;
-    font-size: 14px;
+	width: 32px;
+	font-size: 14px;
 
-    cursor: pointer;
-    color: rgb(124, 124, 124);
+	cursor: pointer;
+	color: rgb(124, 124, 124);
 }
 
 .ivestmentsManagementLink:hover {
-    color: rgb(0, 0, 0);
+	color: rgb(0, 0, 0);
 }
 
- /* place it left from link */
 .ivestmentsManagementLink::before {
-    content: '📈';
-    margin-right: 8px;
-    font-size: 20px;
+	content: '📈';
+	margin-right: 8px;
+	font-size: 20px;
 }

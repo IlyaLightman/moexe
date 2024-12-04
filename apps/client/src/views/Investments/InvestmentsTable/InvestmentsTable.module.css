@@ -1,0 +1,35 @@
+.investmentTable {
+	display: grid;
+	width: 100%;
+	grid-row-gap: 8px;
+}
+
+.investmentRow {
+	display: grid;
+	grid-template-columns: 1fr 2fr 1fr 0.5fr;
+	align-items: center;
+	padding: 10px 0;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.investmentRow:last-child {
+	border-bottom: none;
+}
+
+.investmentRow p {
+	margin: 0;
+}
+
+.crossIcon {
+	width: 100%;
+	text-align: end;
+	font-size: 18px;
+	color: #888;
+	cursor: pointer;
+	justify-self: center;
+	transition: color 0.3s ease;
+}
+
+.crossIcon:hover {
+	color: red;
+}

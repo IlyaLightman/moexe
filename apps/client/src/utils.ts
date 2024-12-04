@@ -7,3 +7,11 @@ export const formatPercent = (value: number) =>
 		minimumFractionDigits: 0,
 		maximumFractionDigits: 2
 	}).format(value)
+
+export const formatDate = (date: Date): string => {
+	return date.toLocaleDateString('ru-RU', {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric'
+	})
+}

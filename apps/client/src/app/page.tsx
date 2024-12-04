@@ -39,7 +39,7 @@ const historyData = [
 	{ month: 'Июнь 2024', invested: 22345 }
 ]
 
-export default function Dashboard() {
+export default function DashboardPage() {
 	return (
 		<div className={styles.dashboard}>
 			<Tickers tickers={tickers} />
