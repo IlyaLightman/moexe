@@ -1,0 +1,18 @@
+.valueBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    font-size: 18px;
+}
+
+.stat {
+    display: flex;
+    gap: 4px;
+}
+
+.value {
+    font-weight: 600;
+}

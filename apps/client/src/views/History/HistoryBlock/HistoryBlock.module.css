@@ -1,0 +1,23 @@
+.historyBlock {
+    display: grid;
+    width: 100%;
+
+    grid-row-gap: 8px;
+}
+
+.historyRow {
+    display: grid;
+
+    grid-template-columns: 1fr 2fr 1fr;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.historyRow p:last-child {
+    text-align: end;
+}
+
+.historyRow:last-child {
+    border-bottom: none;
+}

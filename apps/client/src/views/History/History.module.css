@@ -1,0 +1,14 @@
+.history {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 20px;
+    
+    width: 620px;
+
+    padding: 16px 24px;
+    background: var(--color-bg);
+    border-radius: 16px;
+}
