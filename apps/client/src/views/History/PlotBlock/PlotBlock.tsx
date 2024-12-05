@@ -14,14 +14,12 @@ import {
 } from 'chart.js'
 
 import styles from './PlotBlock.module.css'
+import { HistoryData } from 'lib/types'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 type PlotProps = {
-	data: {
-		month: string
-		invested: number
-	}[]
+	data: HistoryData
 }
 
 const Plot: FC<PlotProps> = ({ data }) => {
@@ -30,7 +28,7 @@ const Plot: FC<PlotProps> = ({ data }) => {
 		datasets: [
 			{
 				label: 'Valuation',
-				data: data.map(item => item.invested),
+				data: data.map(item => item.valuation),
 				borderColor: 'black',
 				backgroundColor: 'black',
 				borderWidth: 2,

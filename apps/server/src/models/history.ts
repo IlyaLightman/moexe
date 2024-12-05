@@ -9,7 +9,7 @@ export const HistorySchemas = {
 						items: {
 							type: 'object',
 							properties: {
-								date: {
+								month: {
 									type: 'string',
 									description: 'Formatted date (e.g., Январь 2024)'
 								},
@@ -18,7 +18,7 @@ export const HistorySchemas = {
 									description: 'Valuation for the month'
 								}
 							},
-							required: ['date', 'valuation']
+							required: ['month', 'valuation']
 						}
 					},
 					invested: {

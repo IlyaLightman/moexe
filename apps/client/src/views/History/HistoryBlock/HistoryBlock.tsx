@@ -29,7 +29,7 @@ const HistoryRow: FC<HistoryRowProps> = ({ month, invested, m2m }) => {
 type Props = {
 	data: {
 		month: string
-		invested: number
+		valuation: number
 		m2m: number
 	}[]
 }
@@ -41,7 +41,7 @@ export const HistoryBlock: FC<Props> = ({ data }) => {
 				<HistoryRow
 					key={rowData.month}
 					month={rowData.month}
-					invested={rowData.invested}
+					invested={rowData.valuation}
 					m2m={rowData.m2m}
 				/>
 			))}

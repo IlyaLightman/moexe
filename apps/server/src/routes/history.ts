@@ -20,24 +20,23 @@ export const getHistory = async (_: FastifyRequest, reply: FastifyReply) => {
 			{} as Record<string, Investment[]>
 		)
 
-		const today = new Date()
-
-		const tickerHistories = await Promise.all(
-			Object.keys(grouped).map(async ticker => {
-				const earliestDate = new Date(
-					Math.min(...grouped[ticker].map(i => new Date(i.date).getTime()))
-				)
-				const prices = await fetchTickerHistory(ticker, earliestDate)
-				return { ticker, prices }
-			})
-		)
+		const tickers = Object.keys(grouped)
+		const tickerHistories: { ticker: string; prices: { date: string; close: number }[] }[] = []
+		for (const ticker of tickers) {
+			const earliestDate = new Date(
+				Math.min(...grouped[ticker].map(i => new Date(i.date).getTime()))
+			)
+			const prices = await fetchTickerHistory(ticker, earliestDate)
+			tickerHistories.push({ ticker, prices })
+		}
 
 		const tickerHistoryMap = tickerHistories.reduce(
 			(acc, { ticker, prices }) => ({ ...acc, [ticker]: prices }),
 			{} as Record<string, { date: string; close: number }[]>
 		)
 
-		const monthlyValuations = Object.entries(grouped).reduce((acc, [ticker, group]) => {
+		const monthlyValuations = tickers.reduce((acc, ticker) => {
+			const group = grouped[ticker]
 			const prices = [
 				...(tickerHistoryMap[ticker] || []),
 				...group.map(inv => ({ date: inv.date, close: inv.initPrice }))
@@ -58,16 +57,19 @@ export const getHistory = async (_: FastifyRequest, reply: FastifyReply) => {
 		const history = Object.entries(monthlyValuations)
 			.sort(([a], [b]) => a.localeCompare(b))
 			.map(([date, valuation]) => ({
-				date: formatToMonthYear(new Date(`${date}-01`)),
+				month: formatToMonthYear(new Date(`${date}-01`)),
 				valuation
 			}))
 
 		const invested = investments.reduce((sum, inv) => sum + inv.initPrice * inv.count, 0)
 
-		const valuation = Object.entries(grouped).reduce((sum, [ticker, group]) => {
+		const valuation = tickers.reduce((sum, ticker) => {
 			const latestPrice =
 				tickerHistoryMap[ticker]?.[tickerHistoryMap[ticker].length - 1]?.close || 0
-			return sum + group.reduce((groupSum, inv) => groupSum + inv.count * latestPrice, 0)
+			return (
+				sum +
+				grouped[ticker].reduce((groupSum, inv) => groupSum + inv.count * latestPrice, 0)
+			)
 		}, 0)
 
 		reply.code(200).send({ history, invested, valuation })

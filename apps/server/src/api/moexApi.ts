@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 interface TickerHistory {
 	date: string
 	close: number
@@ -14,12 +16,8 @@ const fetchTickerData = async (
 	}&interval=${interval}`
 
 	try {
-		const response = await fetch(url)
-		if (!response.ok) {
-			throw new Error(`Failed to fetch MOEX data: ${response.statusText}`)
-		}
-
-		const data = await response.json()
+		const response = await axios.get(url, { timeout: 6 * 10000 })
+		const data = response.data
 		return data.candles.data.map(([, close, , , , , , end]: any) => ({
 			date: end,
 			close

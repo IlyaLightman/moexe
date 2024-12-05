@@ -4,14 +4,12 @@ import styles from './History.module.css'
 import { HistoryBlock } from './HistoryBlock/HistoryBlock'
 import { PlotBlock } from './PlotBlock/PlotBlock'
 import { ValueBlock } from './ValueBlock/ValueBlock'
+import { HistoryData } from 'lib/types'
 
 type Props = {
 	invested: number
 	valuation: number
-	historyData: {
-		month: string
-		invested: number
-	}[]
+	historyData: HistoryData
 }
 
 export const History: FC<Props> = ({ invested, valuation, historyData }) => {
@@ -19,7 +17,7 @@ export const History: FC<Props> = ({ invested, valuation, historyData }) => {
 		if (index === 0) return { ...data, m2m: 0 }
 
 		const prev = array[index - 1]
-		const m2m = (data.invested - prev.invested) / prev.invested
+		const m2m = (data.valuation - prev.valuation) / prev.valuation
 
 		return { ...data, m2m }
 	})
