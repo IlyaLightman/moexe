@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import styles from './InvestmentForm.module.css'
+import apiClient from 'lib/apiClient'
 
 interface InvestmentFormProps {
 	onInvestmentAdded?: () => void
@@ -14,17 +15,24 @@ export const InvestmentForm: React.FC<InvestmentFormProps> = ({ onInvestmentAdde
 		date: ''
 	})
 
+	const [error, setError] = useState<string | null>(null)
+	const [loading, setLoading] = useState(false)
+
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
+		setLoading(true)
+		setError(null)
 
-		await fetch('/api/investments', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(form)
-		})
-
-		setForm({ ticker: '', count: '', date: '' })
-		if (onInvestmentAdded) onInvestmentAdded()
+		try {
+			await apiClient.post('/api/investments', form)
+			setForm({ ticker: '', count: '', date: '' })
+			if (onInvestmentAdded) onInvestmentAdded()
+		} catch (err) {
+			console.error('Error adding investment:', err)
+			setError('Ошибка добавления инвестиций. Попробуйте снова.')
+		} finally {
+			setLoading(false)
+		}
 	}
 
 	return (
@@ -58,8 +66,9 @@ export const InvestmentForm: React.FC<InvestmentFormProps> = ({ onInvestmentAdde
 					className={styles.formInput}
 				/>
 			</div>
-			<button type='submit' className={styles.submitButton}>
-				Добавить
+			{error && <div className={styles.errorMessage}>{error}</div>}
+			<button type='submit' className={styles.submitButton} disabled={loading}>
+				{loading ? 'Добавление...' : 'Добавить'}
 			</button>
 		</form>
 	)

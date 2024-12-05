@@ -1,26 +1,42 @@
 'use client'
 
-import { useState } from 'react'
-
+import { useEffect, useState } from 'react'
 import { InvestmentForm } from './InvestmentForm/InvestmentForm'
 import styles from './Investments.module.css'
 import { InvestmentTable } from './InvestmentsTable/InvestmentsTable'
 import Link from 'next/link'
+import apiClient from 'lib/apiClient'
+import { Investment } from 'lib/types'
 
 export const Investments = () => {
-	const [investments, setInvestments] = useState([
-		{ ticker: 'AAPL', count: 10, date: new Date().toISOString() },
-		{ ticker: 'TSLA', count: 5, date: new Date().toISOString() }
-	])
+	const [investments, setInvestments] = useState<Investment[]>([])
 
-	const handleRemove = (ticker: string) => {
-		setInvestments(prev => prev.filter(inv => inv.ticker !== ticker))
+	const fetchInvestments = async () => {
+		try {
+			const response = await apiClient.get('/api/investments') // Backend route
+			setInvestments(response.data)
+		} catch (error) {
+			console.error('Error fetching investments:', error)
+		}
 	}
 
-	const handleInvestmentAdded = () => {
-		// Fetch or update the investments after a new one is added
-		console.log('Investment added!')
+	const handleRemove = async (investmentId: string) => {
+		try {
+			console.log('Removing investment:', investmentId)
+			await apiClient.delete(`/api/investments/${investmentId}`)
+			setInvestments(investments.filter(investment => investment.id !== investmentId))
+		} catch (error) {
+			console.error('Error removing investment:', error)
+		}
 	}
+
+	const handleInvestmentAdded = async () => {
+		await fetchInvestments()
+	}
+
+	useEffect(() => {
+		fetchInvestments()
+	}, [])
 
 	return (
 		<div className={styles.investmentsLayout}>

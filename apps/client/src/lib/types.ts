@@ -8,3 +8,10 @@ export type HistoryResponse = {
 	invested: number
 	valuation: number
 }
+
+export type Investment = {
+	id: string
+	ticker: string
+	count: number
+	date: string
+}

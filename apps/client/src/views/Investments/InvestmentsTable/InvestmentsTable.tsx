@@ -5,13 +5,14 @@ import styles from './InvestmentsTable.module.css'
 import { formatDate } from 'utils'
 
 type InvestmentRowProps = {
+	id: string
 	ticker: string
 	count: number
 	date: string | Date
 	onRemove: (ticker: string) => void
 }
 
-export const InvestmentRow: FC<InvestmentRowProps> = ({ ticker, count, date, onRemove }) => {
+export const InvestmentRow: FC<InvestmentRowProps> = ({ id, ticker, count, date, onRemove }) => {
 	return (
 		<div className={styles.investmentRow}>
 			<p>{ticker}</p>
@@ -19,7 +20,7 @@ export const InvestmentRow: FC<InvestmentRowProps> = ({ ticker, count, date, onR
 			<p>{formatDate(new Date(date))}</p>
 			<span
 				className={styles.crossIcon}
-				onClick={() => onRemove(ticker)}
+				onClick={() => onRemove(id)}
 				role='button'
 				aria-label='Remove investment'
 				tabIndex={0}
@@ -32,6 +33,7 @@ export const InvestmentRow: FC<InvestmentRowProps> = ({ ticker, count, date, onR
 
 type Props = {
 	data: {
+		id: string
 		ticker: string
 		count: number
 		date: string | Date
@@ -44,7 +46,8 @@ export const InvestmentTable: FC<Props> = ({ data, onRemove }) => {
 		<div className={styles.investmentTable}>
 			{data.map(row => (
 				<InvestmentRow
-					key={row.ticker}
+					id={row.id}
+					key={row.id}
 					ticker={row.ticker}
 					count={row.count}
 					date={row.date}
