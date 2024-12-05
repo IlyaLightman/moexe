@@ -8,10 +8,21 @@ datasource db {
 }
 
 model Investment {
-  id        String   @id @default(uuid())
+  id        String   @id @default(cuid())
   ticker    String
+  count     Float
   date      DateTime
-  quantity  Float
-  price     Float
+  initPrice Float    @map("init_price")
   createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("investments")
+}
+
+model TickerHistory {
+  id     String   @id @default(cuid())
+  ticker String
+  date   DateTime
+  price  Float
+
+  @@map("tickers_history")
 }

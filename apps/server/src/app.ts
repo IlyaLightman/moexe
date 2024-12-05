@@ -2,6 +2,8 @@ import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import swagger from '@fastify/swagger'
 import { PrismaClient } from '@prisma/client'
+import { investmentRoutes } from './routes/investments'
+import { historyRoutes } from './routes/history'
 
 const fastify = Fastify()
 const prisma = new PrismaClient()
@@ -19,6 +21,9 @@ fastify.register(swagger, {
 		}
 	}
 })
+
+fastify.register(investmentRoutes, { prefix: '/api' })
+fastify.register(historyRoutes, { prefix: '/api' })
 
 fastify.get('/ping', async () => {
 	return { message: 'pong' }
