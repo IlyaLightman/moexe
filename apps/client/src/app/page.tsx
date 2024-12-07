@@ -44,8 +44,6 @@ import { HistoryResponse } from 'lib/types'
 export default async function DashboardPage() {
 	try {
 		const { data: historyData }: { data: HistoryResponse } = await apiClient.get('/api/history')
-		const { history, invested, valuation } = historyData
-
 		const { data: tickers } = await apiClient.get('/api/tickers')
 
 		console.log(historyData)
@@ -53,7 +51,7 @@ export default async function DashboardPage() {
 		return (
 			<div className={styles.dashboard}>
 				<Tickers tickers={tickers} />
-				<History invested={invested} valuation={valuation} historyData={history} />
+				<History {...historyData} />
 			</div>
 		)
 	} catch (err) {

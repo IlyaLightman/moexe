@@ -10,7 +10,13 @@ const imageSrcByTicker: Record<string, string | undefined> = {
 	SBER: 'https://s3-symbol-logo.tradingview.com/sberbank--big.svg',
 	MOEX: 'https://s3-symbol-logo.tradingview.com/moscow-exchange--big.svg',
 	T: 'https://s3-symbol-logo.tradingview.com/tcs-group-holding--big.svg',
-	SVCB: 'https://s3-symbol-logo.tradingview.com/sovcombank--big.svg'
+	SVCB: 'https://s3-symbol-logo.tradingview.com/sovcombank--big.svg',
+	ROSN: 'https://s3-symbol-logo.tradingview.com/rosneft--big.svg',
+	LKOH: 'https://s3-symbol-logo.tradingview.com/lukoil--big.svg',
+	PLZL: 'https://s3-symbol-logo.tradingview.com/polyus--big.svg',
+	MGNT: 'https://s3-symbol-logo.tradingview.com/magnit--big.svg',
+	MTSS: 'https://s3-symbol-logo.tradingview.com/mts--big.svg',
+	CHMF: 'https://s3-symbol-logo.tradingview.com/severstal--big.svg'
 }
 
 type Props = {
