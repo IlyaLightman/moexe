@@ -44,11 +44,19 @@ export const getHistory = async (_: FastifyRequest, reply: FastifyReply) => {
 
 			const valuations = prices.reduce((tickerAcc, { date, close }) => {
 				const month = new Date(date).toISOString().slice(0, 7)
-				const valuation = group
-					.filter(inv => new Date(inv.date) <= new Date(date))
-					.reduce((sum, inv) => sum + inv.count * close, 0)
 
-				return { ...tickerAcc, [month]: (tickerAcc[month] || 0) + valuation }
+				const valuation = group.reduce((sum, inv) => {
+					const investmentMonth = new Date(inv.date).toISOString().slice(0, 7)
+
+					if (investmentMonth === month) {
+						return sum + inv.count * inv.initPrice
+					} else if (new Date(inv.date) <= new Date(date)) {
+						return sum + inv.count * close
+					}
+					return sum
+				}, 0)
+
+				return { ...tickerAcc, [month]: valuation }
 			}, {} as Record<string, number>)
 
 			return mergeValuations(acc, valuations)
